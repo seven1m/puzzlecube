@@ -112,52 +112,56 @@ impl Cube {
     }
 
     pub fn rotate_yellow_cw(&mut self) {
-        // save values
-        let y0 = self.yellow[0];
-        let y1 = self.yellow[1];
-        let y2 = self.yellow[2];
-        let y3 = self.yellow[3];
-        let y4 = self.yellow[4];
-        let y5 = self.yellow[5];
-        let y6 = self.yellow[6];
-        let y7 = self.yellow[7];
-        let y8 = self.yellow[8];
-        let g0 = self.green[0];
-        let g1 = self.green[1];
-        let g2 = self.green[2];
-        let o0 = self.orange[0];
-        let o1 = self.orange[1];
-        let o2 = self.orange[2];
-        let r0 = self.red[0];
-        let r1 = self.red[1];
-        let r2 = self.red[2];
-        let b0 = self.blue[0];
-        let b1 = self.blue[1];
-        let b2 = self.blue[2];
-        // yellow
-        self.yellow[0] = y6;
-        self.yellow[1] = y3;
-        self.yellow[2] = y0;
-        self.yellow[3] = y7;
-        self.yellow[5] = y1;
-        self.yellow[6] = y8;
-        self.yellow[7] = y5;
-        self.yellow[8] = y2;
-        // red
-        self.red[0] = g0;
-        self.red[1] = g1;
-        self.red[2] = g2;
-        // green
-        self.green[0] = o0;
-        self.green[1] = o1;
-        self.green[2] = o2;
-        // blue
-        self.blue[0] = r0;
-        self.blue[1] = r1;
-        self.blue[2] = r2;
-        // orange
-        self.orange[0] = b0;
-        self.orange[1] = b1;
-        self.orange[2] = b2;
+        rotate_face_cw(&mut self.yellow);
+        move_row(&mut self.red, &mut self.green, &mut self.orange, &mut self.blue, 0);
     }
+
+}
+
+fn rotate_face_cw(face: &mut Vec<Color>) {
+    let c0 = face[0];
+    let c1 = face[1];
+    let c2 = face[2];
+    let c3 = face[3];
+    let c5 = face[5];
+    let c6 = face[6];
+    let c7 = face[7];
+    let c8 = face[8];
+    face[0] = c6;
+    face[1] = c3;
+    face[2] = c0;
+    face[3] = c7;
+    face[5] = c1;
+    face[6] = c8;
+    face[7] = c5;
+    face[8] = c2;
+}
+
+fn move_row(face1: &mut Vec<Color>, face2: &mut Vec<Color>, face3: &mut Vec<Color>, face4: &mut Vec<Color>, start_index: usize) {
+    // save values
+    let f1_0 = face1[start_index];
+    let f1_1 = face1[start_index + 1];
+    let f1_2 = face1[start_index + 2];
+    let f2_0 = face2[start_index];
+    let f2_1 = face2[start_index + 1];
+    let f2_2 = face2[start_index + 2];
+    let f3_0 = face3[start_index];
+    let f3_1 = face3[start_index + 1];
+    let f3_2 = face3[start_index + 2];
+    let f4_0 = face4[start_index];
+    let f4_1 = face4[start_index + 1];
+    let f4_2 = face4[start_index + 2];
+    // place values
+    face1[start_index] = f2_0;
+    face1[start_index + 1] = f2_1;
+    face1[start_index + 2] = f2_2;
+    face2[start_index] = f3_0;
+    face2[start_index + 1] = f3_1;
+    face2[start_index + 2] = f3_2;
+    face3[start_index] = f4_0;
+    face3[start_index + 1] = f4_1;
+    face3[start_index + 2] = f4_2;
+    face4[start_index] = f1_0;
+    face4[start_index + 1] = f1_1;
+    face4[start_index + 2] = f1_2;
 }
