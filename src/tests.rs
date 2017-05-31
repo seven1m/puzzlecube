@@ -5,101 +5,117 @@ fn it_can_rotate_yellow_clockwise() {
     let mut cube = Cube::new();
     cube.rotate_yellow_cw();
     assert_eq!(
-        vec![
-            Color::Yellow,
-            Color::Yellow,
-            Color::Yellow,
-            Color::Yellow,
-            Color::Yellow,
-            Color::Yellow,
-            Color::Yellow,
-            Color::Yellow,
-            Color::Yellow,
-        ],
+        vec![Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow],
         cube.yellow
     );
     assert_eq!(
-        vec![
-            Color::Green,
-            Color::Green,
-            Color::Green,
-            Color::Red,
-            Color::Red,
-            Color::Red,
-            Color::Red,
-            Color::Red,
-            Color::Red,
-        ],
+        vec![Color::Green, Color::Green, Color::Green, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red],
         cube.red
     );
     assert_eq!(
-        vec![
-            Color::Orange,
-            Color::Orange,
-            Color::Orange,
-            Color::Green,
-            Color::Green,
-            Color::Green,
-            Color::Green,
-            Color::Green,
-            Color::Green,
-        ],
+        vec![Color::Orange, Color::Orange, Color::Orange, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green],
         cube.green
     );
     assert_eq!(
-        vec![
-            Color::Blue,
-            Color::Blue,
-            Color::Blue,
-            Color::Orange,
-            Color::Orange,
-            Color::Orange,
-            Color::Orange,
-            Color::Orange,
-            Color::Orange,
-        ],
+        vec![Color::Blue, Color::Blue, Color::Blue, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange],
         cube.orange
     );
     assert_eq!(
-        vec![
-            Color::Red,
-            Color::Red,
-            Color::Red,
-            Color::Blue,
-            Color::Blue,
-            Color::Blue,
-            Color::Blue,
-            Color::Blue,
-            Color::Blue,
-        ],
+        vec![Color::Red, Color::Red, Color::Red, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue],
         cube.blue
     );
     assert_eq!(
-        vec![
-            Color::Red,
-            Color::Red,
-            Color::Red,
-            Color::Blue,
-            Color::Blue,
-            Color::Blue,
-            Color::Blue,
-            Color::Blue,
-            Color::Blue,
-        ],
+        vec![Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White],
+        cube.white
+    );
+}
+
+#[test]
+fn it_can_rotate_yellow_counter_clockwise() {
+    let mut cube = Cube::new();
+    cube.rotate_yellow_ccw();
+    assert_eq!(
+        vec![Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow],
+        cube.yellow
+    );
+    assert_eq!(
+        vec![Color::Blue, Color::Blue, Color::Blue, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red],
+        cube.red
+    );
+    assert_eq!(
+        vec![Color::Red, Color::Red, Color::Red, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green],
+        cube.green
+    );
+    assert_eq!(
+        vec![Color::Green, Color::Green, Color::Green, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange],
+        cube.orange
+    );
+    assert_eq!(
+        vec![Color::Orange, Color::Orange, Color::Orange, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue],
         cube.blue
     );
     assert_eq!(
-        vec![
-            Color::White,
-            Color::White,
-            Color::White,
-            Color::White,
-            Color::White,
-            Color::White,
-            Color::White,
-            Color::White,
-            Color::White,
-        ],
+        vec![Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White],
+        cube.white
+    );
+}
+
+#[test]
+fn it_can_rotate_white_clockwise() {
+    let mut cube = Cube::new();
+    cube.rotate_white_cw();
+    assert_eq!(
+        vec![Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow],
+        cube.yellow
+    );
+    assert_eq!(
+        vec![Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Blue, Color::Blue, Color::Blue],
+        cube.red
+    );
+    assert_eq!(
+        vec![Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Red, Color::Red, Color::Red],
+        cube.green
+    );
+    assert_eq!(
+        vec![Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Green, Color::Green, Color::Green],
+        cube.orange
+    );
+    assert_eq!(
+        vec![Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Orange, Color::Orange, Color::Orange],
+        cube.blue
+    );
+    assert_eq!(
+        vec![Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White],
+        cube.white
+    );
+}
+
+#[test]
+fn it_can_rotate_white_counter_clockwise() {
+    let mut cube = Cube::new();
+    cube.rotate_white_ccw();
+    assert_eq!(
+        vec![Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow],
+        cube.yellow
+    );
+    assert_eq!(
+        vec![Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Green, Color::Green, Color::Green],
+        cube.red
+    );
+    assert_eq!(
+        vec![Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Orange, Color::Orange, Color::Orange],
+        cube.green
+    );
+    assert_eq!(
+        vec![Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Blue, Color::Blue, Color::Blue],
+        cube.orange
+    );
+    assert_eq!(
+        vec![Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Red, Color::Red, Color::Red],
+        cube.blue
+    );
+    assert_eq!(
+        vec![Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White],
         cube.white
     );
 }

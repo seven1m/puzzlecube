@@ -116,6 +116,20 @@ impl Cube {
         move_row(&mut self.red, &mut self.green, &mut self.orange, &mut self.blue, 0);
     }
 
+    pub fn rotate_yellow_ccw(&mut self) {
+        rotate_face_ccw(&mut self.yellow);
+        move_row(&mut self.red, &mut self.blue, &mut self.orange, &mut self.green, 0);
+    }
+
+    pub fn rotate_white_cw(&mut self) {
+        rotate_face_cw(&mut self.white);
+        move_row(&mut self.red, &mut self.blue, &mut self.orange, &mut self.green, 6);
+    }
+
+    pub fn rotate_white_ccw(&mut self) {
+        rotate_face_ccw(&mut self.white);
+        move_row(&mut self.red, &mut self.green, &mut self.orange, &mut self.blue, 6);
+    }
 }
 
 fn rotate_face_cw(face: &mut Vec<Color>) {
@@ -135,6 +149,25 @@ fn rotate_face_cw(face: &mut Vec<Color>) {
     face[6] = c8;
     face[7] = c5;
     face[8] = c2;
+}
+
+fn rotate_face_ccw(face: &mut Vec<Color>) {
+    let c0 = face[0];
+    let c1 = face[1];
+    let c2 = face[2];
+    let c3 = face[3];
+    let c5 = face[5];
+    let c6 = face[6];
+    let c7 = face[7];
+    let c8 = face[8];
+    face[0] = c2;
+    face[1] = c5;
+    face[2] = c8;
+    face[3] = c1;
+    face[5] = c7;
+    face[6] = c0;
+    face[7] = c3;
+    face[8] = c6;
 }
 
 fn move_row(face1: &mut Vec<Color>, face2: &mut Vec<Color>, face3: &mut Vec<Color>, face4: &mut Vec<Color>, start_index: usize) {
