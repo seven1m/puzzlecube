@@ -130,6 +130,66 @@ impl Cube {
         rotate_face_ccw(&mut self.white);
         move_row(&mut self.red, &mut self.green, &mut self.orange, &mut self.blue, 6);
     }
+
+    pub fn rotate_red_cw(&mut self) {
+        rotate_face_cw(&mut self.red);
+        // save values
+        let yellow_0 = self.yellow[0];
+        let yellow_3 = self.yellow[3];
+        let yellow_6 = self.yellow[6];
+        let green_0 = self.green[0];
+        let green_3 = self.green[3];
+        let green_6 = self.green[6];
+        let white_0 = self.white[0];
+        let white_3 = self.white[3];
+        let white_6 = self.white[6];
+        let blue_2 = self.blue[2]; // blue is upside down
+        let blue_5 = self.blue[5];
+        let blue_8 = self.blue[8];
+        // place values
+        self.yellow[0] = blue_8;
+        self.yellow[3] = blue_5;
+        self.yellow[6] = blue_2;
+        self.green[0] = yellow_0;
+        self.green[3] = yellow_3;
+        self.green[6] = yellow_6;
+        self.white[0] = green_0;
+        self.white[3] = green_3;
+        self.white[6] = green_6;
+        self.blue[2] = white_6; // blue is upside down
+        self.blue[5] = white_3;
+        self.blue[8] = white_0;
+    }
+
+    pub fn rotate_red_ccw(&mut self) {
+        rotate_face_ccw(&mut self.red);
+        // save values
+        let yellow_0 = self.yellow[0];
+        let yellow_3 = self.yellow[3];
+        let yellow_6 = self.yellow[6];
+        let green_0 = self.green[0];
+        let green_3 = self.green[3];
+        let green_6 = self.green[6];
+        let white_0 = self.white[0];
+        let white_3 = self.white[3];
+        let white_6 = self.white[6];
+        let blue_2 = self.blue[2]; // blue is upside down
+        let blue_5 = self.blue[5];
+        let blue_8 = self.blue[8];
+        // place values
+        self.yellow[0] = green_0;
+        self.yellow[3] = green_3;
+        self.yellow[6] = green_6;
+        self.green[0] = white_0;
+        self.green[3] = white_3;
+        self.green[6] = white_6;
+        self.white[0] = blue_8;
+        self.white[3] = blue_5;
+        self.white[6] = blue_2;
+        self.blue[2] = yellow_6; // blue is upside down
+        self.blue[5] = yellow_3;
+        self.blue[8] = yellow_0;
+    }
 }
 
 fn rotate_face_cw(face: &mut Vec<Color>) {
