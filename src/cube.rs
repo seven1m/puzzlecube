@@ -18,7 +18,7 @@ pub enum Color {
 //     | W |
 //     +---+
 //
-// Cubelets are numbered startin from the top-left,
+// Cubelets are numbered starting from the top-left,
 // reading from right-to-left, top-to-bottom, like this:
 //
 // +-+-+-+
@@ -27,7 +27,7 @@ pub enum Color {
 // |6 7 8|
 // +-+-+-+
 //
-// Of course, the center cubelet (no. 5), never changes color.
+// Of course, the center cubelet (no. 4), never changes color.
 
 #[derive(Debug, PartialEq)]
 pub struct Cube {
