@@ -216,28 +216,6 @@ impl Cube {
         self.blue[0] = clone.yellow[8];
     }
 
-//         +-------+
-//         | 8 7 6 |
-//         | 5 B 3 |
-//         | 2 1 0 |
-//         +-------+
-//         | 0 1 2 |
-//         | 3 Y 5 |
-//         | 6 7 8 |
-// +-------+-------+-------+-------+
-// | 0 1 2 | 0 1 2 | 0 1 2 | 0 1 2 |
-// | 3 R 5 | 3 G 5 | 3 O 5 | 3 B 5 |
-// | 6 7 8 | 6 7 8 | 6 7 8 | 6 7 8 |
-// +-------+-------+-------+-------+
-//         | 0 1 2 |
-//         | 3 W 5 |
-//         | 6 7 8 |
-//         +-------+
-//         | 8 7 6 |
-//         | 5 B 3 |
-//         | 2 1 0 |
-//         +-------+
-
     pub fn rotate_orange_ccw(&mut self) {
         rotate_face_ccw(&mut self.orange);
         let clone = self.clone();
@@ -253,6 +231,40 @@ impl Cube {
         self.blue[6] = clone.white[2];
         self.blue[3] = clone.white[5];
         self.blue[0] = clone.white[8];
+    }
+
+    pub fn rotate_blue_cw(&mut self) {
+        rotate_face_cw(&mut self.blue);
+        let clone = self.clone();
+        self.yellow[0] = clone.orange[2];
+        self.yellow[1] = clone.orange[5];
+        self.yellow[2] = clone.orange[8];
+        self.orange[2] = clone.white[8];
+        self.orange[5] = clone.white[7];
+        self.orange[8] = clone.white[6];
+        self.white[6] = clone.red[0];
+        self.white[7] = clone.red[3];
+        self.white[8] = clone.red[6];
+        self.red[0] = clone.yellow[0];
+        self.red[3] = clone.yellow[1];
+        self.red[6] = clone.yellow[2];
+    }
+
+    pub fn rotate_blue_ccw(&mut self) {
+        rotate_face_ccw(&mut self.blue);
+        let clone = self.clone();
+        self.yellow[0] = clone.red[6];
+        self.yellow[1] = clone.red[3];
+        self.yellow[2] = clone.red[0];
+        self.orange[2] = clone.yellow[0];
+        self.orange[5] = clone.yellow[1];
+        self.orange[8] = clone.yellow[2];
+        self.white[6] = clone.orange[8];
+        self.white[7] = clone.orange[5];
+        self.white[8] = clone.orange[2];
+        self.red[0] = clone.white[6];
+        self.red[3] = clone.white[7];
+        self.red[6] = clone.white[8];
     }
 }
 
