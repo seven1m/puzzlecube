@@ -1,4 +1,5 @@
 use rand;
+use std::fmt;
 
 #[derive(Debug, PartialEq, Copy, Clone)]
 pub enum Color {
@@ -8,6 +9,19 @@ pub enum Color {
     Blue,
     Red,
     Orange
+}
+
+impl fmt::Display for Color {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match self {
+            &Color::Yellow => write!(f, "Y"),
+            &Color::White  => write!(f, "W"),
+            &Color::Green  => write!(f, "G"),
+            &Color::Blue   => write!(f, "B"),
+            &Color::Red    => write!(f, "R"),
+            &Color::Orange => write!(f, "O"),
+        }
+    }
 }
 
 static COLORS: [Color; 6] = [
@@ -279,23 +293,76 @@ impl Cube {
     }
 
     pub fn scramble(&mut self) {
-        for _ in 0..20 {
-            self.turn_randomly();
-        }
+        self.scramble_with_debug(false);
     }
 
-    pub fn turn_randomly(&mut self) {
-        let mut rng = rand::thread_rng();
-        let color = rand::sample(&mut rng, COLORS.iter(), 1)[0];
-        let direction = rand::sample(&mut rng, 0..2, 1)[0];
-        match color {
-            &Color::Yellow => { if direction == 0 { self.rotate_yellow_cw() } else { self.rotate_yellow_ccw() } },
-            &Color::White  => { if direction == 0 { self.rotate_white_cw()  } else { self.rotate_white_ccw()  } },
-            &Color::Green  => { if direction == 0 { self.rotate_green_cw()  } else { self.rotate_green_ccw()  } },
-            &Color::Blue   => { if direction == 0 { self.rotate_blue_cw()   } else { self.rotate_blue_ccw()   } },
-            &Color::Red    => { if direction == 0 { self.rotate_red_cw()    } else { self.rotate_red_ccw()    } },
-            &Color::Orange => { if direction == 0 { self.rotate_orange_cw() } else { self.rotate_orange_ccw() } },
+    pub fn scramble_with_debug(&mut self, debug: bool) {
+        let mut last_move: (Color, u8) = (Color::White, 100);
+        let mut color: Color;
+        let mut direction: u8;
+        for _ in 0..20 {
+            let turn = random_turn();
+            color = turn.0;
+            direction = turn.1;
+            while last_move.0 == color && last_move.1 != direction && last_move.1 != 100 {
+                let turn = random_turn();
+                color = turn.0;
+                direction = turn.1;
+            }
+            last_move = (color, direction);
+            if debug { debug_turn(color, direction) }
+            self.turn(color, direction);
         }
+        println!();
+    }
+
+    pub fn turn(&mut self, color: Color, direction: u8) {
+        match color {
+            Color::Yellow => { if direction == 0 { self.rotate_yellow_cw() } else { self.rotate_yellow_ccw() } },
+            Color::White  => { if direction == 0 { self.rotate_white_cw()  } else { self.rotate_white_ccw()  } },
+            Color::Green  => { if direction == 0 { self.rotate_green_cw()  } else { self.rotate_green_ccw()  } },
+            Color::Blue   => { if direction == 0 { self.rotate_blue_cw()   } else { self.rotate_blue_ccw()   } },
+            Color::Red    => { if direction == 0 { self.rotate_red_cw()    } else { self.rotate_red_ccw()    } },
+            Color::Orange => { if direction == 0 { self.rotate_orange_cw() } else { self.rotate_orange_ccw() } },
+        }
+    }
+}
+
+impl fmt::Display for Cube {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "\n").unwrap();
+        write!(f, "               +-------+\n").unwrap();
+        write!(f, "               | {} {} {} |\n", self.yellow[0], self.yellow[1], self.yellow[2]).unwrap();
+        write!(f, "               | {} {} {} |\n", self.yellow[3], self.yellow[4], self.yellow[5]).unwrap();
+        write!(f, "               | {} {} {} |\n", self.yellow[6], self.yellow[7], self.yellow[8]).unwrap();
+        write!(f, "       +-------+-------+-------+-------+\n").unwrap();
+        write!(f, "       | {} {} {} |", self.red[0], self.red[1], self.red[2]).unwrap();
+        write!(f, " {} {} {} |", self.green[0], self.green[1], self.green[2]).unwrap();
+        write!(f, " {} {} {} |", self.orange[0], self.orange[1], self.orange[2]).unwrap();
+        write!(f, " {} {} {} |\n", self.blue[0], self.blue[1], self.blue[2]).unwrap();
+        write!(f, "       | {} {} {} |", self.red[3], self.red[4], self.red[5]).unwrap();
+        write!(f, " {} {} {} |", self.green[3], self.green[4], self.green[5]).unwrap();
+        write!(f, " {} {} {} |", self.orange[3], self.orange[4], self.orange[5]).unwrap();
+        write!(f, " {} {} {} |\n", self.blue[3], self.blue[4], self.blue[5]).unwrap();
+        write!(f, "       | {} {} {} |", self.red[6], self.red[7], self.red[8]).unwrap();
+        write!(f, " {} {} {} |", self.green[6], self.green[7], self.green[8]).unwrap();
+        write!(f, " {} {} {} |", self.orange[6], self.orange[7], self.orange[8]).unwrap();
+        write!(f, " {} {} {} |\n", self.blue[6], self.blue[7], self.blue[8]).unwrap();
+        write!(f, "       +-------+-------+-------+-------+\n").unwrap();
+        write!(f, "               | {} {} {} |\n", self.white[0], self.white[1], self.white[2]).unwrap();
+        write!(f, "               | {} {} {} |\n", self.white[3], self.white[4], self.white[5]).unwrap();
+        write!(f, "               | {} {} {} |\n", self.white[6], self.white[7], self.white[8]).unwrap();
+        write!(f, "               +-------+").unwrap();
+        write!(f, "\n\n").unwrap();
+        write!(f, "     ________                    ________\n").unwrap();
+        write!(f, "   / {} {} {}  / \\                / {} {} {}  / \\\n", self.yellow[0], self.yellow[1], self.yellow[2], self.white[2], self.white[5], self.white[8]).unwrap();
+        write!(f, "  / {} {} {}  / {} \\              / {} {} {}  / {} \\\n", self.yellow[3], self.yellow[4], self.yellow[5], self.orange[2], self.white[1], self.white[4], self.white[7], self.blue[6]).unwrap();
+        write!(f, " / {} {} {}  / {} {} \\            / {} {} {}  / {} {} \\\n", self.yellow[6], self.yellow[7], self.yellow[8], self.orange[1], self.orange[5], self.white[0], self.white[3], self.white[6], self.blue[7], self.blue[3]).unwrap();
+        write!(f, "/________/ {} {} {} `          /________/ {} {} {} `\n", self.orange[0], self.orange[4], self.orange[8], self.blue[8], self.blue[4], self.blue[0]).unwrap();
+        write!(f, "\\ {} {} {}  \\  {} {} /           \\ {} {} {}  \\  {} {} /\n", self.green[0], self.green[1], self.green[2], self.orange[3], self.orange[7], self.red[8], self.red[7], self.red[6], self.blue[5], self.blue[1]).unwrap();
+        write!(f, " \\ {} {} {}  \\  {} /             \\ {} {} {}  \\  {} /\n", self.green[3], self.green[4], self.green[5], self.orange[6], self.red[5], self.red[4], self.red[3], self.blue[2]).unwrap();
+        write!(f, "  \\ {} {} {}  \\  /               \\ {} {} {}  \\  /\n", self.green[6], self.green[7], self.green[8], self.red[2], self.red[1], self.red[0]).unwrap();
+        write!(f, "   \\________\\/                 \\________\\/")
     }
 }
 
@@ -364,4 +431,27 @@ fn move_row(face1: &mut Vec<Color>, face2: &mut Vec<Color>, face3: &mut Vec<Colo
     face4[start_index] = f1_0;
     face4[start_index + 1] = f1_1;
     face4[start_index + 2] = f1_2;
+}
+
+fn random_turn() -> (Color, u8) {
+    let mut rng = rand::thread_rng();
+    let color = rand::sample(&mut rng, COLORS.iter(), 1)[0];
+    let direction = rand::sample(&mut rng, 0..2, 1)[0];
+    (*color, direction)
+}
+
+fn debug_turn(color: Color, direction: u8) {
+    let face = match color {
+        Color::Yellow => 'U',
+        Color::White  => 'D',
+        Color::Green  => 'F',
+        Color::Blue   => 'B',
+        Color::Red    => 'L',
+        Color::Orange => 'R',
+    };
+    if direction == 0 {
+        print!("{} ", face);
+    } else {
+        print!("{}' ", face);
+    }
 }

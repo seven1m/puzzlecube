@@ -7,6 +7,6 @@ use cube::*;
 
 fn main() {
     let mut cube = Cube::new();
-    cube.scramble();
-    println!("{:?}", cube);
+    cube.scramble_with_debug(true);
+    println!("{}", cube);
 }
