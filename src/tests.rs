@@ -359,3 +359,14 @@ fn it_can_rotate_blue_counter_clockwise() {
         cube.white
     );
 }
+
+#[test]
+fn it_can_scramble() {
+    let mut cube1 = Cube::new();
+    let mut cube2 = Cube::new();
+    cube2.scramble();
+    let mut cube3 = cube2.clone();
+    cube3.scramble();
+    assert_ne!(cube1, cube2);
+    assert_ne!(cube2, cube3);
+}

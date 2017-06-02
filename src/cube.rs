@@ -1,3 +1,5 @@
+use rand;
+
 #[derive(Debug, PartialEq, Copy, Clone)]
 pub enum Color {
     Yellow,
@@ -7,6 +9,15 @@ pub enum Color {
     Red,
     Orange
 }
+
+static COLORS: [Color; 6] = [
+    Color::Yellow,
+    Color::White,
+    Color::Green,
+    Color::Blue,
+    Color::Red,
+    Color::Orange,
+];
 
 // Unfold the cube like this:
 //
@@ -265,6 +276,26 @@ impl Cube {
         self.red[0] = clone.white[6];
         self.red[3] = clone.white[7];
         self.red[6] = clone.white[8];
+    }
+
+    pub fn scramble(&mut self) {
+        for _ in 0..20 {
+            self.turn_randomly();
+        }
+    }
+
+    pub fn turn_randomly(&mut self) {
+        let mut rng = rand::thread_rng();
+        let color = rand::sample(&mut rng, COLORS.iter(), 1)[0];
+        let direction = rand::sample(&mut rng, 0..2, 1)[0];
+        match color {
+            &Color::Yellow => { if direction == 0 { self.rotate_yellow_cw() } else { self.rotate_yellow_ccw() } },
+            &Color::White  => { if direction == 0 { self.rotate_white_cw()  } else { self.rotate_white_ccw()  } },
+            &Color::Green  => { if direction == 0 { self.rotate_green_cw()  } else { self.rotate_green_ccw()  } },
+            &Color::Blue   => { if direction == 0 { self.rotate_blue_cw()   } else { self.rotate_blue_ccw()   } },
+            &Color::Red    => { if direction == 0 { self.rotate_red_cw()    } else { self.rotate_red_ccw()    } },
+            &Color::Orange => { if direction == 0 { self.rotate_orange_cw() } else { self.rotate_orange_ccw() } },
+        }
     }
 }
 

@@ -1,6 +1,12 @@
+extern crate rand;
+
 mod cube;
 mod tests;
 
+use cube::*;
+
 fn main() {
-    println!("Hello, world!");
+    let mut cube = Cube::new();
+    cube.scramble();
+    println!("{:?}", cube);
 }
