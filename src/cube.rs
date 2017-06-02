@@ -21,7 +21,7 @@ static COLORS: [Color; 6] = [
 
 // Unfold the cube like this:
 //
-//     +===+
+//     +---+
 //     | Y |
 // +---+---+---+---+
 // | R | G | O | B |
