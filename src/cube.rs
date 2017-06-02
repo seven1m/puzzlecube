@@ -29,7 +29,7 @@ pub enum Color {
 //
 // Of course, the center cubelet (no. 4), never changes color.
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone)]
 pub struct Cube {
     pub yellow: Vec<Color>,
     pub white:  Vec<Color>,
@@ -133,122 +133,70 @@ impl Cube {
 
     pub fn rotate_red_cw(&mut self) {
         rotate_face_cw(&mut self.red);
-        // save values
-        let yellow_0 = self.yellow[0];
-        let yellow_3 = self.yellow[3];
-        let yellow_6 = self.yellow[6];
-        let green_0 = self.green[0];
-        let green_3 = self.green[3];
-        let green_6 = self.green[6];
-        let white_0 = self.white[0];
-        let white_3 = self.white[3];
-        let white_6 = self.white[6];
-        let blue_2 = self.blue[2]; // blue is upside down
-        let blue_5 = self.blue[5];
-        let blue_8 = self.blue[8];
-        // place values
-        self.yellow[0] = blue_8;
-        self.yellow[3] = blue_5;
-        self.yellow[6] = blue_2;
-        self.green[0] = yellow_0;
-        self.green[3] = yellow_3;
-        self.green[6] = yellow_6;
-        self.white[0] = green_0;
-        self.white[3] = green_3;
-        self.white[6] = green_6;
-        self.blue[2] = white_6; // blue is upside down
-        self.blue[5] = white_3;
-        self.blue[8] = white_0;
+        let clone = self.clone();
+        self.yellow[0] = clone.blue[8];
+        self.yellow[3] = clone.blue[5];
+        self.yellow[6] = clone.blue[2];
+        self.green[0] = clone.yellow[0];
+        self.green[3] = clone.yellow[3];
+        self.green[6] = clone.yellow[6];
+        self.white[0] = clone.green[0];
+        self.white[3] = clone.green[3];
+        self.white[6] = clone.green[6];
+        self.blue[2] = clone.white[6];
+        self.blue[5] = clone.white[3];
+        self.blue[8] = clone.white[0];
     }
 
     pub fn rotate_red_ccw(&mut self) {
         rotate_face_ccw(&mut self.red);
-        // save values
-        let yellow_0 = self.yellow[0];
-        let yellow_3 = self.yellow[3];
-        let yellow_6 = self.yellow[6];
-        let green_0 = self.green[0];
-        let green_3 = self.green[3];
-        let green_6 = self.green[6];
-        let white_0 = self.white[0];
-        let white_3 = self.white[3];
-        let white_6 = self.white[6];
-        let blue_2 = self.blue[2]; // blue is upside down
-        let blue_5 = self.blue[5];
-        let blue_8 = self.blue[8];
-        // place values
-        self.yellow[0] = green_0;
-        self.yellow[3] = green_3;
-        self.yellow[6] = green_6;
-        self.green[0] = white_0;
-        self.green[3] = white_3;
-        self.green[6] = white_6;
-        self.white[0] = blue_8;
-        self.white[3] = blue_5;
-        self.white[6] = blue_2;
-        self.blue[2] = yellow_6; // blue is upside down
-        self.blue[5] = yellow_3;
-        self.blue[8] = yellow_0;
+        let clone = self.clone();
+        self.yellow[0] = clone.green[0];
+        self.yellow[3] = clone.green[3];
+        self.yellow[6] = clone.green[6];
+        self.green[0] = clone.white[0];
+        self.green[3] = clone.white[3];
+        self.green[6] = clone.white[6];
+        self.white[0] = clone.blue[8];
+        self.white[3] = clone.blue[5];
+        self.white[6] = clone.blue[2];
+        self.blue[2] = clone.yellow[6];
+        self.blue[5] = clone.yellow[3];
+        self.blue[8] = clone.yellow[0];
     }
 
     pub fn rotate_green_cw(&mut self) {
         rotate_face_cw(&mut self.green);
-        // save values
-        let yellow_6 = self.yellow[6];
-        let yellow_7 = self.yellow[7];
-        let yellow_8 = self.yellow[8];
-        let red_2 = self.red[2];
-        let red_5 = self.red[5];
-        let red_8 = self.red[8];
-        let orange_0 = self.orange[0];
-        let orange_3 = self.orange[3];
-        let orange_6 = self.orange[6];
-        let white_0 = self.white[0];
-        let white_1 = self.white[1];
-        let white_2 = self.white[2];
-        // place values
-        self.yellow[6] = red_8;
-        self.yellow[7] = red_5;
-        self.yellow[8] = red_2;
-        self.red[2] = white_0;
-        self.red[5] = white_1;
-        self.red[8] = white_2;
-        self.orange[0] = yellow_6;
-        self.orange[3] = yellow_7;
-        self.orange[6] = yellow_8;
-        self.white[0] = orange_6;
-        self.white[1] = orange_3;
-        self.white[2] = orange_0;
+        let clone = self.clone();
+        self.yellow[6] = clone.red[8];
+        self.yellow[7] = clone.red[5];
+        self.yellow[8] = clone.red[2];
+        self.red[2] = clone.white[0];
+        self.red[5] = clone.white[1];
+        self.red[8] = clone.white[2];
+        self.orange[0] = clone.yellow[6];
+        self.orange[3] = clone.yellow[7];
+        self.orange[6] = clone.yellow[8];
+        self.white[0] = clone.orange[6];
+        self.white[1] = clone.orange[3];
+        self.white[2] = clone.orange[0];
     }
 
     pub fn rotate_green_ccw(&mut self) {
         rotate_face_ccw(&mut self.green);
-        // save values
-        let yellow_6 = self.yellow[6];
-        let yellow_7 = self.yellow[7];
-        let yellow_8 = self.yellow[8];
-        let red_2 = self.red[2];
-        let red_5 = self.red[5];
-        let red_8 = self.red[8];
-        let orange_0 = self.orange[0];
-        let orange_3 = self.orange[3];
-        let orange_6 = self.orange[6];
-        let white_0 = self.white[0];
-        let white_1 = self.white[1];
-        let white_2 = self.white[2];
-        // place values
-        self.yellow[6] = orange_0;
-        self.yellow[7] = orange_3;
-        self.yellow[8] = orange_6;
-        self.red[2] = yellow_8;
-        self.red[5] = yellow_7;
-        self.red[8] = yellow_6;
-        self.orange[0] = white_2;
-        self.orange[3] = white_2;
-        self.orange[6] = white_0;
-        self.white[0] = red_2;
-        self.white[1] = red_5;
-        self.white[2] = red_8;
+        let clone = self.clone();
+        self.yellow[6] = clone.orange[0];
+        self.yellow[7] = clone.orange[3];
+        self.yellow[8] = clone.orange[6];
+        self.red[2] = clone.yellow[8];
+        self.red[5] = clone.yellow[7];
+        self.red[8] = clone.yellow[6];
+        self.orange[0] = clone.white[2];
+        self.orange[3] = clone.white[2];
+        self.orange[6] = clone.white[0];
+        self.white[0] = clone.red[2];
+        self.white[1] = clone.red[5];
+        self.white[2] = clone.red[8];
     }
 }
 
