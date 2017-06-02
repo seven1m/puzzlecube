@@ -256,9 +256,9 @@ impl Cube {
         self.white[6] = clone.red[0];
         self.white[7] = clone.red[3];
         self.white[8] = clone.red[6];
-        self.red[0] = clone.yellow[0];
+        self.red[0] = clone.yellow[2];
         self.red[3] = clone.yellow[1];
-        self.red[6] = clone.yellow[2];
+        self.red[6] = clone.yellow[0];
     }
 
     pub fn rotate_blue_ccw(&mut self) {
