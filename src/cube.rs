@@ -198,6 +198,62 @@ impl Cube {
         self.white[1] = clone.red[5];
         self.white[2] = clone.red[8];
     }
+
+    pub fn rotate_orange_cw(&mut self) {
+        rotate_face_cw(&mut self.orange);
+        let clone = self.clone();
+        self.yellow[2] = clone.green[2];
+        self.yellow[5] = clone.green[5];
+        self.yellow[8] = clone.green[8];
+        self.green[2] = clone.white[2];
+        self.green[5] = clone.white[5];
+        self.green[8] = clone.white[8];
+        self.white[2] = clone.blue[6];
+        self.white[5] = clone.blue[3];
+        self.white[8] = clone.blue[0];
+        self.blue[6] = clone.yellow[2];
+        self.blue[3] = clone.yellow[5];
+        self.blue[0] = clone.yellow[8];
+    }
+
+//         +-------+
+//         | 8 7 6 |
+//         | 5 B 3 |
+//         | 2 1 0 |
+//         +-------+
+//         | 0 1 2 |
+//         | 3 Y 5 |
+//         | 6 7 8 |
+// +-------+-------+-------+-------+
+// | 0 1 2 | 0 1 2 | 0 1 2 | 0 1 2 |
+// | 3 R 5 | 3 G 5 | 3 O 5 | 3 B 5 |
+// | 6 7 8 | 6 7 8 | 6 7 8 | 6 7 8 |
+// +-------+-------+-------+-------+
+//         | 0 1 2 |
+//         | 3 W 5 |
+//         | 6 7 8 |
+//         +-------+
+//         | 8 7 6 |
+//         | 5 B 3 |
+//         | 2 1 0 |
+//         +-------+
+
+    pub fn rotate_orange_ccw(&mut self) {
+        rotate_face_ccw(&mut self.orange);
+        let clone = self.clone();
+        self.yellow[2] = clone.blue[6];
+        self.yellow[5] = clone.blue[3];
+        self.yellow[8] = clone.blue[0];
+        self.green[2] = clone.yellow[2];
+        self.green[5] = clone.yellow[5];
+        self.green[8] = clone.yellow[8];
+        self.white[2] = clone.green[2];
+        self.white[5] = clone.green[5];
+        self.white[8] = clone.green[8];
+        self.blue[6] = clone.white[2];
+        self.blue[3] = clone.white[5];
+        self.blue[0] = clone.white[8];
+    }
 }
 
 fn rotate_face_cw(face: &mut Vec<Color>) {
