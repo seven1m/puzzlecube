@@ -301,13 +301,11 @@ impl Cube {
         let mut color: Color;
         let mut direction: u8;
         for _ in 0..20 {
-            let turn = random_turn();
-            color = turn.0;
-            direction = turn.1;
-            while last_move.0 == color && last_move.1 != direction && last_move.1 != 100 {
+            loop {
                 let turn = random_turn();
                 color = turn.0;
                 direction = turn.1;
+                if last_move.0 != color || last_move.1 == direction || last_move.1 == 100 { break }
             }
             last_move = (color, direction);
             if debug { debug_turn(color, direction) }
