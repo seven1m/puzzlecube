@@ -190,6 +190,66 @@ impl Cube {
         self.blue[5] = yellow_3;
         self.blue[8] = yellow_0;
     }
+
+    pub fn rotate_green_cw(&mut self) {
+        rotate_face_cw(&mut self.green);
+        // save values
+        let yellow_6 = self.yellow[6];
+        let yellow_7 = self.yellow[7];
+        let yellow_8 = self.yellow[8];
+        let red_2 = self.red[2];
+        let red_5 = self.red[5];
+        let red_8 = self.red[8];
+        let orange_0 = self.orange[0];
+        let orange_3 = self.orange[3];
+        let orange_6 = self.orange[6];
+        let white_0 = self.white[0];
+        let white_1 = self.white[1];
+        let white_2 = self.white[2];
+        // place values
+        self.yellow[6] = red_8;
+        self.yellow[7] = red_5;
+        self.yellow[8] = red_2;
+        self.red[2] = white_0;
+        self.red[5] = white_1;
+        self.red[8] = white_2;
+        self.orange[0] = yellow_6;
+        self.orange[3] = yellow_7;
+        self.orange[6] = yellow_8;
+        self.white[0] = orange_6;
+        self.white[1] = orange_3;
+        self.white[2] = orange_0;
+    }
+
+    pub fn rotate_green_ccw(&mut self) {
+        rotate_face_ccw(&mut self.green);
+        // save values
+        let yellow_6 = self.yellow[6];
+        let yellow_7 = self.yellow[7];
+        let yellow_8 = self.yellow[8];
+        let red_2 = self.red[2];
+        let red_5 = self.red[5];
+        let red_8 = self.red[8];
+        let orange_0 = self.orange[0];
+        let orange_3 = self.orange[3];
+        let orange_6 = self.orange[6];
+        let white_0 = self.white[0];
+        let white_1 = self.white[1];
+        let white_2 = self.white[2];
+        // place values
+        self.yellow[6] = orange_0;
+        self.yellow[7] = orange_3;
+        self.yellow[8] = orange_6;
+        self.red[2] = yellow_8;
+        self.red[5] = yellow_7;
+        self.red[8] = yellow_6;
+        self.orange[0] = white_2;
+        self.orange[3] = white_2;
+        self.orange[6] = white_0;
+        self.white[0] = red_2;
+        self.white[1] = red_5;
+        self.white[2] = red_8;
+    }
 }
 
 fn rotate_face_cw(face: &mut Vec<Color>) {
