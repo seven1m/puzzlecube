@@ -67,72 +67,24 @@ pub struct Cube {
 impl Cube {
     pub fn new() -> Cube {
         Cube {
-            yellow: vec![
-                Color::Yellow,
-                Color::Yellow,
-                Color::Yellow,
-                Color::Yellow,
-                Color::Yellow,
-                Color::Yellow,
-                Color::Yellow,
-                Color::Yellow,
-                Color::Yellow,
-            ],
-            white: vec![
-                Color::White,
-                Color::White,
-                Color::White,
-                Color::White,
-                Color::White,
-                Color::White,
-                Color::White,
-                Color::White,
-                Color::White,
-            ],
-            green: vec![
-                Color::Green,
-                Color::Green,
-                Color::Green,
-                Color::Green,
-                Color::Green,
-                Color::Green,
-                Color::Green,
-                Color::Green,
-                Color::Green,
-            ],
-            blue: vec![
-                Color::Blue,
-                Color::Blue,
-                Color::Blue,
-                Color::Blue,
-                Color::Blue,
-                Color::Blue,
-                Color::Blue,
-                Color::Blue,
-                Color::Blue,
-            ],
-            red: vec![
-                Color::Red,
-                Color::Red,
-                Color::Red,
-                Color::Red,
-                Color::Red,
-                Color::Red,
-                Color::Red,
-                Color::Red,
-                Color::Red,
-            ],
-            orange: vec![
-                Color::Orange,
-                Color::Orange,
-                Color::Orange,
-                Color::Orange,
-                Color::Orange,
-                Color::Orange,
-                Color::Orange,
-                Color::Orange,
-                Color::Orange,
-            ],
+            yellow: vec![Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow, Color::Yellow],
+            white:  vec![Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White, Color::White],
+            green:  vec![Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green, Color::Green],
+            blue:   vec![Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue],
+            red:    vec![Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red],
+            orange: vec![Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange],
+        }
+    }
+
+    pub fn new_with_test_pattern() -> Cube {
+        // scramble (yellow on top, green in front): F2 U' L2 R2 B2 U R2 D U2 B2 U R2 F' R' B2 D' B' L' D2 B' F R2
+        Cube {
+            yellow: vec![Color::Green, Color::Red, Color::Orange, Color::Red, Color::Yellow, Color::Orange, Color::White, Color::Blue, Color::Red],
+            white:  vec![Color::Red, Color::Green, Color::Yellow, Color::White, Color::White, Color::Green, Color::Blue, Color::White, Color::Orange],
+            green:  vec![Color::Orange, Color::Red, Color::Green, Color::Blue, Color::Green, Color::White, Color::Blue, Color::Yellow, Color::Orange],
+            blue:   vec![Color::Yellow, Color::White, Color::Red, Color::Green, Color::Blue, Color::Yellow, Color::Green, Color::Orange, Color::Yellow],
+            red:    vec![Color::White, Color::Yellow, Color::Blue, Color::Blue, Color::Red, Color::Orange, Color::Red, Color::Green, Color::White],
+            orange: vec![Color::Yellow, Color::Yellow, Color::Blue, Color::Blue, Color::Orange, Color::Red, Color::Green, Color::Orange, Color::White],
         }
     }
 
@@ -217,7 +169,7 @@ impl Cube {
         self.red[5] = clone.yellow[7];
         self.red[8] = clone.yellow[6];
         self.orange[0] = clone.white[2];
-        self.orange[3] = clone.white[2];
+        self.orange[3] = clone.white[1];
         self.orange[6] = clone.white[0];
         self.white[0] = clone.red[2];
         self.white[1] = clone.red[5];
