@@ -261,12 +261,12 @@ impl Cube {
             }
             last_move = (color, direction);
             if debug { debug_turn(color, direction) }
-            self.turn(color, direction);
+            self.turn_by_color(color, direction);
         }
         println!();
     }
 
-    pub fn turn(&mut self, color: Color, direction: u8) {
+    pub fn turn_by_color(&mut self, color: Color, direction: u8) {
         match color {
             Color::Yellow => { if direction == 0 { self.rotate_yellow_cw() } else { self.rotate_yellow_ccw() } },
             Color::White  => { if direction == 0 { self.rotate_white_cw()  } else { self.rotate_white_ccw()  } },
