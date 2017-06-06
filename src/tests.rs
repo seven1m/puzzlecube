@@ -1,6 +1,20 @@
 use cube::*;
 
 #[test]
+fn it_can_orient() {
+    let mut cube = Cube::new();
+    cube.orient(Color::White, Color::Blue);
+    assert_eq!(Color::White, cube.up);
+    assert_eq!(Color::Blue, cube.front);
+    assert_eq!(Color::White, cube.up_color());
+    assert_eq!(Color::Yellow, cube.down_color());
+    assert_eq!(Color::Blue, cube.front_color());
+    assert_eq!(Color::Green, cube.back_color());
+    assert_eq!(Color::Red, cube.left_color());
+    assert_eq!(Color::Orange, cube.right_color());
+}
+
+#[test]
 fn it_can_rotate_yellow_clockwise() {
     let mut cube = Cube::new_with_test_pattern();
     cube.rotate_yellow_cw();

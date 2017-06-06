@@ -62,6 +62,8 @@ pub struct Cube {
     pub blue:   Vec<Color>,
     pub red:    Vec<Color>,
     pub orange: Vec<Color>,
+    pub up:     Color,
+    pub front:  Color,
 }
 
 impl Cube {
@@ -73,6 +75,8 @@ impl Cube {
             blue:   vec![Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue, Color::Blue],
             red:    vec![Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red, Color::Red],
             orange: vec![Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange, Color::Orange],
+            up:     Color::Yellow,
+            front:  Color::Green,
         }
     }
 
@@ -85,6 +89,156 @@ impl Cube {
             blue:   vec![Color::Yellow, Color::White, Color::Red, Color::Green, Color::Blue, Color::Yellow, Color::Green, Color::Orange, Color::Yellow],
             red:    vec![Color::White, Color::Yellow, Color::Blue, Color::Blue, Color::Red, Color::Orange, Color::Red, Color::Green, Color::White],
             orange: vec![Color::Yellow, Color::Yellow, Color::Blue, Color::Blue, Color::Orange, Color::Red, Color::Green, Color::Orange, Color::White],
+            up:     Color::Yellow,
+            front:  Color::Green,
+        }
+    }
+
+    pub fn up_color(&self) -> Color {
+        self.up
+    }
+
+    pub fn down_color(&self) -> Color {
+        match self.up {
+            Color::White  => Color::Yellow,
+            Color::Yellow => Color::White,
+            Color::Blue   => Color::Green,
+            Color::Green  => Color::Blue,
+            Color::Red    => Color::Orange,
+            Color::Orange => Color::Red,
+        }
+    }
+
+    pub fn front_color(&self) -> Color {
+        self.front
+    }
+
+    pub fn back_color(&self) -> Color {
+        match self.front {
+            Color::White  => Color::Yellow,
+            Color::Yellow => Color::White,
+            Color::Blue   => Color::Green,
+            Color::Green  => Color::Blue,
+            Color::Red    => Color::Orange,
+            Color::Orange => Color::Red,
+        }
+    }
+
+    pub fn left_color(&self) -> Color {
+        match self.up {
+            Color::White => {
+                match self.front {
+                    Color::Green  => Color::Orange,
+                    Color::Blue   => Color::Red,
+                    Color::Orange => Color::Blue,
+                    Color::Red    => Color::Green,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Yellow => {
+                match self.front {
+                    Color::Green  => Color::Red,
+                    Color::Blue   => Color::Orange,
+                    Color::Orange => Color::Green,
+                    Color::Red    => Color::Blue,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Blue => {
+                match self.front {
+                    Color::White  => Color::Orange,
+                    Color::Yellow => Color::Red,
+                    Color::Orange => Color::Yellow,
+                    Color::Red    => Color::White,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Green => {
+                match self.front {
+                    Color::White  => Color::Red,
+                    Color::Yellow => Color::Orange,
+                    Color::Orange => Color::White,
+                    Color::Red    => Color::Yellow,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Red => {
+                match self.front {
+                    Color::White  => Color::Blue,
+                    Color::Yellow => Color::Green,
+                    Color::Blue   => Color::Yellow,
+                    Color::Green  => Color::White,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Orange => {
+                match self.front {
+                    Color::White  => Color::Green,
+                    Color::Yellow => Color::Blue,
+                    Color::Blue   => Color::White,
+                    Color::Green  => Color::Yellow,
+                    _ => panic!("impossible state")
+                }
+            }
+        }
+    }
+
+    pub fn right_color(&self) -> Color {
+        match self.up {
+            Color::White => {
+                match self.front {
+                    Color::Green  => Color::Red,
+                    Color::Blue   => Color::Orange,
+                    Color::Orange => Color::Green,
+                    Color::Red    => Color::Blue,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Yellow => {
+                match self.front {
+                    Color::Green  => Color::Orange,
+                    Color::Blue   => Color::Red,
+                    Color::Orange => Color::Blue,
+                    Color::Red    => Color::Green,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Blue => {
+                match self.front {
+                    Color::White  => Color::Red,
+                    Color::Yellow => Color::Orange,
+                    Color::Orange => Color::White,
+                    Color::Red    => Color::Yellow,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Green => {
+                match self.front {
+                    Color::White  => Color::Orange,
+                    Color::Yellow => Color::Red,
+                    Color::Orange => Color::Yellow,
+                    Color::Red    => Color::White,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Red => {
+                match self.front {
+                    Color::White  => Color::Green,
+                    Color::Yellow => Color::Blue,
+                    Color::Blue   => Color::White,
+                    Color::Green  => Color::Yellow,
+                    _ => panic!("impossible state")
+                }
+            }
+            Color::Orange => {
+                match self.front {
+                    Color::White  => Color::Blue,
+                    Color::Yellow => Color::Green,
+                    Color::Blue   => Color::Yellow,
+                    Color::Green  => Color::White,
+                    _ => panic!("impossible state")
+                }
+            }
         }
     }
 
@@ -275,6 +429,11 @@ impl Cube {
             Color::Red    => { if direction == 0 { self.rotate_red_cw()    } else { self.rotate_red_ccw()    } },
             Color::Orange => { if direction == 0 { self.rotate_orange_cw() } else { self.rotate_orange_ccw() } },
         }
+    }
+
+    pub fn orient(&mut self, up: Color, front: Color) {
+        self.up = up;
+        self.front = front;
     }
 }
 
